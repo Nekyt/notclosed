@@ -1,6 +1,6 @@
 ##
 ## EPITECH PROJECT, 2020
-## NAVY_2020
+## NAVY
 ## File description:
 ## Makefile
 ##
