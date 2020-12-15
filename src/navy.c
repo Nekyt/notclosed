@@ -19,20 +19,6 @@ void print_dstar(char **to_print) {
   my_putstr("\n");
 }
 
-char **init_empty_map() {
-    char **empty_map = malloc(sizeof(char*) * 11);
-
-  (" |A B C D E F G H\n");
-  ("-+---------------\n");
-  ("1|. . . . . . . .\n");
-  ("2|. . . . . . . .\n");
-  ("3|. . . . . . . .\n");
-  ("4|. . . . . . . .\n");
-  ("5|. . . . . . . .\n");
-  ("6|. . . . . . . .\n");
-  ("7|. . . . . . . .\n");
-  ("8|. . . . . . . .\n");
-}
 
 char **init_player_map(char **p_data) {}
 
@@ -52,8 +38,7 @@ entry_data_t get_data(int ac, char **av) {
     offset = offset + 1;
   }
   positions = fopen(av[1 + offset], "r");
-  for (; getline(&data_got.init_pos[k], &at_v, positions) > 0; k++)
-    ;
+  for (; getline(&data_got.init_pos[k], &at_v, positions) > 0; k++);
   data_got.init_pos[k] = NULL;
   fclose(positions);
   return (data_got);
@@ -65,4 +50,5 @@ int main(int ac, char **av) {
   my_put_nbr(data_got.pid);
   my_putchar('\n');
   print_dstar(data_got.init_pos);
+  print_dstar(init_empty_map());
 }
