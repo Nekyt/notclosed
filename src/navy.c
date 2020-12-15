@@ -20,6 +20,9 @@ void print_dstar(char **to_print) {
 }
 
 
+
+
+
 entry_data_t get_data(int ac, char **av) {
   int offset = 0;
   long unsigned int at_v;
@@ -27,6 +30,7 @@ entry_data_t get_data(int ac, char **av) {
   entry_data_t data_got;
   int k = 0;
 
+  data_got.pid = 0;
   data_got.init_pos = malloc(sizeof(char *) * 5);
   for (int i = 0; i < 5; i++)
     data_got.init_pos[i] = NULL;
@@ -35,17 +39,17 @@ entry_data_t get_data(int ac, char **av) {
     offset = offset + 1;
   }
   positions = fopen(av[1 + offset], "r");
-  for (; getline(&data_got.init_pos[k], &at_v, positions) > 0; k++);
+  for (; getline(&data_got.init_pos[k], &at_v, positions) > 0; k++)
+    ;
   data_got.init_pos[k] = NULL;
   fclose(positions);
-  print_dstar(data_got.init_pos);
   return (data_got);
 }
 
 int main(int ac, char **av) {
-    
-     entry_data_t data_got = get_data(ac, av); 
-     my_putstr("data read:\n");
-     print_dstar(data_got.init_pos);
-     
-    }
+  entry_data_t data_got = get_data(ac, av);
+  my_putstr("data read:\n pid:");
+  my_put_nbr(data_got.pid);
+  my_putchar('\n');
+  print_dstar(data_got.init_pos);
+}
