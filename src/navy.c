@@ -43,7 +43,7 @@ char **display_map(map_t *map) {
 
 void print_dstar(char **to_print)
 {
-    for(int i = 0 ; to_print[i] != '\0'; i++)
+    for(int i = 0 ; to_print[i] != NULL; i++)
         my_putstr(to_print[i]);
     my_putstr("\n");
 }
@@ -51,24 +51,20 @@ void print_dstar(char **to_print)
 entry_data_t get_data(int ac, char **av) {
   int offset = 0;
   int loffset = 0;
-  int positions = 0;
+  FILE *positions;
   entry_data_t data_got;
 
   data_got.init_pos = malloc(sizeof(char*) * 5);
+    for(int i = 0; i < 5; i++)
+    data_got.init_pos[i] = NULL;
   if (ac == 3) {
     data_got.pid = my_getnbr(av[1]);
     offset = offset + 1;
   }
-  for(int i = 0; i < 5; i++)
-    data_got.init_pos[i] = NULL;
-  positions = open(av[1 + offset],O_RDONLY);
-  if(errno == ENOENT)
-      my_putstr("probleme \n");
-  while(read(positions, read_data + loffset, 1) > 0)
-    loffset++;
-    read_data[loffset  - 1] = '\0';
-  my_putstr(read_data);
-    close(positions);
+  positions = fopen(av[1 + offset],"r");
+  for(int i = 0; getline(&data_got.init_pos[i], &loffset, positions) > 0; i++);
+  print_dstar(data_got.init_pos);
+    fclose(positions);
 }
 
 int main(int ac, char **av) {
