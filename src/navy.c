@@ -43,9 +43,9 @@ entry_data_t get_data(int ac, char **av) {
 }
 
 int main(int ac, char **av) {
-    
-     entry_data_t data_got = get_data(ac, av); 
+
+     entry_data_t data_got = get_data(ac, av);
      my_putstr("data read:\n");
      print_dstar(data_got.init_pos);
-     
-    }
+
+}

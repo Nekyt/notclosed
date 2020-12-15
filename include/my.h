@@ -24,5 +24,6 @@ void print_pos();
 void print_ennemy_pos();
 int my_getnbr(char const *str);
 char **display_map(map_t *map);
+char *my_strdup(char const *src);
 
 #endif /* !MY_H_ */
