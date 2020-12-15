@@ -7,7 +7,8 @@
 
 SRC	=	my_putchar.c	\
 		my_putstr.c		\
-		my_strlen.c
+		my_strlen.c		\
+		my_getnbr.c
 
 
 OBJ	=	$(SRC:.c=.o)

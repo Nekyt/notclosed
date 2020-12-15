@@ -9,7 +9,7 @@ SRC	=	src/navy.c
 
 CC			=	gcc
 
-CFLAGS		=	 -Wall -Wextra -pedantic --std=c99 -Llib -lmy -Iinclude -g
+CFLAGS		=	 -Wall -Wextra -pedantic -Llib -lmy -Iinclude -g
 
 OBJS		=	$(SRC:.c=.o)
 EXEC 		=	navy

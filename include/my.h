@@ -22,6 +22,7 @@ int my_putstr(char const *str);
 int my_strlen(char const *str);
 void print_pos();
 void print_ennemy_pos();
+int my_getnbr(char const *str);
 char **display_map(map_t *map);
 
 #endif /* !MY_H_ */
