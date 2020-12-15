@@ -13,6 +13,10 @@ typedef struct map_s
     char **tab;
 } map_t;
 
+typedef struct entry_data{
+    char **init_pos;
+    int pid;
+} entry_data_t;
 void my_putchar(char c);
 int my_putstr(char const *str);
 int my_strlen(char const *str);

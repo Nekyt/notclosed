@@ -48,9 +48,20 @@ char **display_map(map_t *map)
     return (map->tab);
 }
 
+entry_data_t get_data(int ac, char **av)
+{
+    int offset = 0;
+    if(ac == 3)
+    {
+        
+    }
+}
+
 
 int main()
 {
+
+
     map_t *map = malloc(sizeof(map_t));
     char **tab;
 
