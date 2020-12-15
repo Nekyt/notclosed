@@ -17,15 +17,15 @@ EXEC 		=	navy
 all: ${EXEC}
 
 ${EXEC}: ${OBJS}
-	$(MAKE) -C lib/my
-	${CC}  -o ${EXEC} ${OBJS} ${CFLAGS}
+	$(MAKE) -C lib
+	${CC}  ${CFLAGS}  -o ${EXEC} ${OBJS} -Llib -lmy
 
 clean:
 	rm -f ${OBJS}
-	make -C lib/my clean
+	make -C lib clean
 
 fclean: clean
 	rm -f ${EXEC}
-	make -C lib/my fclean
+	make -C lib fclean
 
 re: fclean all

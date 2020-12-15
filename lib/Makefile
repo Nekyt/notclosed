@@ -19,13 +19,11 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	ar rc $(NAME) $(OBJ)
-	cp $(NAME) ../
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
-	rm ../$(NAME)
 
 re:	fclean	all
