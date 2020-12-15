@@ -21,7 +21,7 @@ void print_dstar(char **to_print) {
 
 char **init_empty_map() {
     char **empty_map = malloc(sizeof(char*) * 11);
-    
+
   (" |A B C D E F G H\n");
   ("-+---------------\n");
   ("1|. . . . . . . .\n");
