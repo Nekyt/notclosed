@@ -7,6 +7,7 @@
 
 #include "../include/maps_manager.h"
 #include "../include/my.h"
+#include "../include/ship_cptns.h"
 #include <stdlib.h>
 
 char **init_empty_map()
@@ -23,6 +24,7 @@ char **init_empty_map()
     empty_map[7] = my_strdup("6|. . . . . . . .\n");
     empty_map[8] = my_strdup("7|. . . . . . . .\n");
     empty_map[9] = my_strdup("8|. . . . . . . .\n");
+    empty_map[10] = NULL;
     return (empty_map);
 }
 
@@ -62,8 +64,8 @@ void print_ships(ship_t **ships)
 
 ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships)
 {
-    int end_pos_x = get_from_char(coordinates[index][5] + 2);
-    int end_pos_y = get_from_num(coordinates[index][6] + 1);
+    int end_pos_x = (get_from_char(coordinates[index][5]) + 1) * 2;
+    int end_pos_y = get_from_num(coordinates[index][6]) + 1;
 
     if (index == 0) {
         ships = malloc(sizeof(ship_t *) * 5);
@@ -71,8 +73,8 @@ ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships)
     }
     ships[index] = malloc(sizeof(ship_t));
     ships[index]->length = get_from_num(coordinates[index][0]);
-    ships[index]->start_pos_x = get_from_char(coordinates[index][2] + 2);
-    ships[index]->start_pos_y = get_from_num(coordinates[index][3] + 1);
+    ships[index]->start_pos_x = (get_from_char(coordinates[index][2]) + 1) * 2;
+    ships[index]->start_pos_y = get_from_num(coordinates[index][3]) + 1;
     ships[index]->dir = determine_dir(ships, index, end_pos_x, end_pos_y);
     if (index >= 3)
         return (ships);
@@ -80,10 +82,15 @@ ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships)
         return (ship_analyzer(coordinates, index + 1, ships));
 }
 
-char **init_player_map(char **coordinates, int index, char **fulfil)
+char **init_player_map(char **coordinates, ship_t **ships)
 {
-    ship_t **ships = ship_analyzer(coordinates, 0 , NULL);
-    ship_t *cur = ships[index];
-    print_ships(ships);
+        char **fulfil = init_empty_map();
+        print_ships(ships);
+        void (*ship_m[])(char**,ship_t*) = {ship_is_up,ship_is_down, ship_is_left,ship_is_right};
 
+        for(int i = 0; ships[i] != NULL; i++)
+        {
+            ship_m[ships[i]->dir](fulfil, ships[i]);
+        }
+        return(fulfil);
 }

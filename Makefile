@@ -6,7 +6,8 @@
 ##
 
 SRC	=	src/navy.c	\
-	src/maps_manager.c
+	src/maps_manager.c	\
+	src/ship_cptns.c
 
 CC			=	gcc
 

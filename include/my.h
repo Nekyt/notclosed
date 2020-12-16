@@ -8,15 +8,26 @@
 #ifndef MY_H_
 #define MY_H_
 
-typedef struct map_s
-{
+typedef struct map_s {
     char **tab;
 } map_t;
 
-typedef struct entry_data{
+typedef struct entry_data {
     char **init_pos;
     int pid;
 } entry_data_t;
+
+typedef enum ppos { first, second } ppos_t;
+
+typedef struct player {
+    char **own;
+    char **theirs;
+    char **own_pid;
+    char **theirs_pid;
+    int score_max;
+    int score;
+    ppos_t order;b
+} player_t;
 
 void my_putchar(char c);
 int my_putstr(char const *str);

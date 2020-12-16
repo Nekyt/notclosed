@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>   
 #include <unistd.h>
 
 void print_dstar(char **to_print) {
@@ -18,6 +19,17 @@ void print_dstar(char **to_print) {
     my_putstr(to_print[i]);
   }
   my_putstr("\n");
+}
+void print_player(player_t *pl)
+{
+    my_putstr("created player max ");
+    my_put_nbr(pl->score_max);
+    my_putstr("\nscore actual:\n");
+    my_put_nbr(pl->score);
+    my_putstr("\nour map\n");
+    print_dstar(pl->own);
+    my_putstr("theirs \n");
+    print_dstar(pl->theirs);
 }
 
 
@@ -43,12 +55,34 @@ entry_data_t get_data(int ac, char **av) {
   return (data_got);
 }
 
+
+
+player_t *init_player(entry_data_t my_data, ship_t **ships)
+{
+    player_t *our = malloc(sizeof(player_t));
+    int score_max = 0;
+    our->own = my_data.init_pos;
+    our->theirs = init_empty_map();
+    our->score = 0;
+    for(int i = 0;ships[i] != NULL; i++)
+        score_max += ships[i]->length;
+    our->score_max = score_max;
+    our->own_pid = getpid();
+    if (my_data.pid == 0)
+    
+    return(our);
+}
+
 int main(int ac, char **av) {
-  entry_data_t data_got = get_data(ac, av);
-  my_putstr("data read:\n pid:");
-  my_put_nbr(data_got.pid);
-  my_putchar('\n');
-  print_dstar(data_got.init_pos);
-    print_dstar(init_empty_map());
-  init_player_map(data_got.init_pos,0,NULL);
+  entry_data_t data_got;
+  ship_t **ships = NULL;
+  player_t *pl = NULL;
+  char **map;
+
+  data_got = get_data(ac,av);
+  ships = ship_analyzer(data_got.init_pos, 0, NULL);
+  map = init_player_map(data_got.init_pos,ships);
+  pl = init_player(map, ships);
+  print_player(pl);
+
 }

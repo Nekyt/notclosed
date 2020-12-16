@@ -22,6 +22,6 @@ typedef struct ship
     way_t dir;
 } ship_t;
 
-
-char **init_player_map(char **coordinates, int index, char **fulfil);
+ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships);
+char **init_player_map(char **coordinates,ship_t **ships);
 char **init_empty_map();
