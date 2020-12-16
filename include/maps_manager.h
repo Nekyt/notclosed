@@ -10,15 +10,18 @@ typedef enum way
     up, 
     down, 
     left, 
-    right
+    right,
+    def
 } way_t;
 
 typedef struct ship
 {
-    int start_pos;
-    way_t orientation; 
+    int start_pos_x;
+    int start_pos_y;
+    int length;
+    way_t dir;
 } ship_t;
 
 
-char **init_player_map(char **empty_map,char **coordinates);
+char **init_player_map(char **coordinates, int index, char **fulfil);
 char **init_empty_map();

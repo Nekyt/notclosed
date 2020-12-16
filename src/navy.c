@@ -5,6 +5,7 @@
 ** navy.c
 */
 #include "../include/my.h"
+#include "../include/maps_manager.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -19,8 +20,6 @@ void print_dstar(char **to_print) {
   my_putstr("\n");
 }
 
-
-char **init_player_map(char **p_data) {}
 
 entry_data_t get_data(int ac, char **av) {
   int offset = 0;
@@ -50,5 +49,6 @@ int main(int ac, char **av) {
   my_put_nbr(data_got.pid);
   my_putchar('\n');
   print_dstar(data_got.init_pos);
-  print_dstar(init_empty_map());
+    print_dstar(init_empty_map());
+  init_player_map(data_got.init_pos,0,NULL);
 }

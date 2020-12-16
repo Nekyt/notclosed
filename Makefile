@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC	=	src/navy.c
+SRC	=	src/navy.c	\
+	src/maps_manager.c
 
 CC			=	gcc
 

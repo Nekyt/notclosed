@@ -17,10 +17,13 @@ typedef struct entry_data{
     char **init_pos;
     int pid;
 } entry_data_t;
+
 void my_putchar(char c);
 int my_putstr(char const *str);
 int my_strlen(char const *str);
 void print_pos();
+int get_from_char(char letter);
+int get_from_num(char num);
 void print_ennemy_pos();
 int my_getnbr(char const *str);
 void my_put_nbr(int nb);
