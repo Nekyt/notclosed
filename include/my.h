@@ -7,7 +7,7 @@
 
 #ifndef MY_H_
 #define MY_H_
-
+#include "maps_manager.h"
 typedef struct map_s {
     char **tab;
 } map_t;
@@ -22,11 +22,11 @@ typedef enum ppos { first, second } ppos_t;
 typedef struct player {
     char **own;
     char **theirs;
-    char **own_pid;
-    char **theirs_pid;
+    int own_pid;
+    int theirs_pid;
     int score_max;
     int score;
-    ppos_t order;b
+    ppos_t order;
 } player_t;
 
 void my_putchar(char c);
@@ -40,5 +40,5 @@ int my_getnbr(char const *str);
 void my_put_nbr(int nb);
 char **display_map(map_t *map);
 char *my_strdup(char const *src);
-
+player_t *init_player(char **our_map, ship_t **ships, int op_id);
 #endif /* !MY_H_ */

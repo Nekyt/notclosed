@@ -4,7 +4,8 @@
 ** File description:
 ** maps_manager
 */
-
+#ifndef MAPS_H
+#define MAPS_H
 typedef enum way
 {
     up, 
@@ -25,3 +26,4 @@ typedef struct ship
 ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships);
 char **init_player_map(char **coordinates,ship_t **ships);
 char **init_empty_map();
+#endif 
