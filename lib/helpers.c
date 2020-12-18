@@ -7,6 +7,8 @@
 
 #include <stdlib.h>
 #include "../include/my.h"
+#include "../include/maps_manager.h"
+#include "../include/my_signals.h"
 
 
 int get_from_char(char letter)
@@ -53,4 +55,20 @@ char *convert_to(int to_convert)
     my_putstr(result);
     my_putchar('\n');
     return (result);
+}
+
+int is_num(char c)
+{
+    if(c >= '0' && c <= '9')
+        return(1);
+    else
+        return(0);
+}
+
+void display_coord(coord_t *to_d)
+{
+    char letter = to_d->lett + 'A' - 1;
+    char nb = to_d->nb + '0';
+    my_putchar(letter);
+    my_putchar(nb);
 }
