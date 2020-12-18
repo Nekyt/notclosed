@@ -13,7 +13,8 @@ SRC	=	my_putchar.c	\
 		my_getnbr.c		\
 		my_strdup.c		\
 		helpers.c		\
-		my_put_nbr.c
+		my_put_nbr.c	\
+		my_revstr.c
 
 
 OBJ	=	$(SRC:.c=.o)

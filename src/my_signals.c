@@ -29,14 +29,13 @@ void connect_successful(int s_nb, siginfo_t *info, void *context)
     if(info->si_pid == handle)
         handle = -2;
 }
+
 void manage_ids(player_t *pl)
 {
     struct sigaction sg = {0};
     sg.sa_flags = SA_SIGINFO;
     sigemptyset(&(sg.sa_mask));
-
-   
-
+    
     if(pl->theirs_pid == 0)
     {
         (sg.sa_sigaction) = id_caller;
@@ -49,6 +48,7 @@ void manage_ids(player_t *pl)
         my_put_nbr(pl->theirs_pid);
         my_putstr("\n");
         kill(pl->theirs_pid,SIGUSR2);
+        pl->order = first;
     } else{
         (sg.sa_sigaction) = connect_successful;
         sigaction(SIGUSR2, &sg, NULL);
@@ -67,6 +67,7 @@ void manage_ids(player_t *pl)
         my_putstr("my id was: ");
         my_put_nbr(getpid());
         my_putchar('\n');
+        pl->order = second;
     }
 
 

@@ -10,7 +10,7 @@
 #include "../include/my.h"
 typedef struct coord
 {
-    char letter;
+    int lett;
     int nb;
 } coord_t;
 void manage_ids(player_t *pl);

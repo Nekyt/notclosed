@@ -41,4 +41,8 @@ void my_put_nbr(int nb);
 char **display_map(map_t *map);
 char *my_strdup(char const *src);
 player_t *init_player(char **our_map, ship_t **ships, int op_id);
+void print_dstar(char **to_print);
+int check_pos(char *at_p);
+char *my_revstr(char *str);
+char *convert_to(int to_convert);
 #endif /* !MY_H_ */

@@ -7,6 +7,7 @@
 #include "../include/my.h"
 #include "../include/maps_manager.h"
 #include "../include/my_signals.h"
+#include "../include/battle_start.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -89,4 +90,5 @@ int main(int ac, char **av)
     pl = init_player(map, ships, data_got.pid);
     manage_ids(pl);
     print_player(pl);
+    battle_start(pl);
 }
