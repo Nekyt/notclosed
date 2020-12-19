@@ -9,7 +9,8 @@ SRC	=	src/navy.c	\
 	src/maps_manager.c	\
 	src/ship_cptns.c	\
 	src/my_signals.c	\
-	src/battle_start.c
+	src/battle_start.c	\
+	src/my_att_signals.c
 
 CC			=	gcc
 

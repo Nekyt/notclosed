@@ -13,10 +13,6 @@
 
 int handle = 0;
 
-void received_attack(int pid, siginfo_t *information, void *my_context)
-{
-}
-
 
 void id_caller(int s_nb, siginfo_t *info, void *context)
 {

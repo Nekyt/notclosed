@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void print_attack(player_t *pl)
+void print_dispo(player_t *pl)
 {
     my_putstr("my positions:\n");
     print_dstar(pl->own);
@@ -21,19 +21,21 @@ void print_attack(player_t *pl)
     print_dstar(pl->theirs);
 }
 
-void receive(player_t *pl)
+int receive(player_t *pl)
 {
+    int r = 0;
     my_putstr("waiting for enemy's attack...\n");
-    receive_attack(pl);
-
+    r = receive_attack(pl);
+    my_putchar('\n');
+    return(r);
 }
 
-void attack(player_t *pl)
+int attack(player_t *pl)
 {
     coord_t att = {0};
-    print_attack(pl);
     char *at_p = NULL;
     long unsigned int off = 0;
+    int r = 0;
     my_putstr("attack: ");
     getline(&at_p, &off, stdin);
     while (check_pos(at_p) != 1) {
@@ -44,20 +46,27 @@ void attack(player_t *pl)
     }
     att.lett = at_p[0] - 'A' + 1;
     att.nb = at_p[1];
-
+    r = attack_other_pl(att,pl);
+    my_putchar('\n');
+    return(r);
 }
 
-int won(int test, player_t *pl)
+int won(int test, player_t *pl, coord_t act)
 {
+    act.lett = (act.lett + 1) * 2;
+    act.nb = act.nb + 1;
     if (test == 1) {
         pl->score = pl->score + 1;
+            pl->theirs[act.nb][act.lett] = 'x';
         if (pl->score == pl->score_max) {
             kill(pl->theirs_pid, SIGUSR1);
-            my_putstr("You won!");
+            my_putstr("I won");
             return (1);
-        } else
+        } else{
             kill(pl->theirs_pid, SIGUSR2);
-    }
+        }
+    } else
+        pl->theirs[act.nb][act.lett] = 'o';
     return (0);
 }
 
@@ -65,18 +74,14 @@ int lost(int test, player_t *pl)
 {
     if(test == 0){
         my_putstr("Enemy won\n");
-        return (1)
+        return (1);
     }
     else
         return (0);
 }
 void battle_start(player_t *pl)
 {
-    if (pl->order == first) {
-        attack(pl);
-    } else {
-        receive(pl);
-    }
+    fight_manager(pl);
 }
 
 int analyze_hit(coord_t my_coord, player_t *pl)
@@ -98,3 +103,19 @@ int analyze_hit(coord_t my_coord, player_t *pl)
     return (0);
 }
 
+int fight_manager(player_t *pl)
+{
+    if(pl->order == first)
+    {
+        do{
+            print_dispo(pl);
+        }
+        while(attack(pl) == 0 && receive(pl) == 0);
+    }
+    else
+    {
+        print_dispo(pl);
+        while (receive(pl) == 0 && attack(pl) == 0);
+    }
+    my_putstr("exited manager...\n");
+}

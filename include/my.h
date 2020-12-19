@@ -5,9 +5,9 @@
 ** my_h
 */
 
+#include "maps_manager.h"
 #ifndef MY_H_
 #define MY_H_
-#include "maps_manager.h"
 typedef struct map_s {
     char **tab;
 } map_t;
@@ -28,6 +28,12 @@ typedef struct player {
     int score;
     ppos_t order;
 } player_t;
+
+typedef struct coord
+{
+    int lett;
+    int nb;
+} coord_t;
 
 int is_num(char c);
 void my_putchar(char c);

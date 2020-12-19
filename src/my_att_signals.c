@@ -45,10 +45,7 @@ int attack_other_pl(coord_t act, player_t *pl)
         usleep(5);
     }
     pause();
-    if (won(handle, pl))
-        return (1);
-    else
-        return (0);
+    return(won(handle, pl, act));
 }
 
 void receive_handle(int num)
@@ -66,7 +63,7 @@ void r_helper(player_t *pl, struct timespec *tc, coord_t *received)
     tc->tv_sec = 0;
     tc->tv_nsec = 10000000;
     handle = 0;
-    kill(pl->theirs, SIGUSR1);
+    kill(pl->theirs_pid, SIGUSR1);
     pause();
     while (nanosleep(tc, tc) < 0);
     received->nb = handle;

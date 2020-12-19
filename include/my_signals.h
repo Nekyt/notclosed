@@ -5,15 +5,10 @@
 ** my_signals
 */
 
+#include "my.h"
 #ifndef MY_SIGNALS_H_
 #define MY_SIGNALS_H_
-#include "../include/my.h"
 extern int handle;
-typedef struct coord
-{
-    int lett;
-    int nb;
-} coord_t;
 void manage_ids(player_t *pl);
 int receive_attack(player_t *pl);
 int attack_other_pl(coord_t act, player_t *pl);
