@@ -37,14 +37,17 @@ int attack_other_pl(coord_t act, player_t *pl)
     sigaction(SIGUSR2, &sg1, NULL);
     for (int i = 0; i < act.lett; i++) {
         kill(pl->theirs_pid, SIGUSR1);
-        usleep(5);
+        if (i != act.lett - 1)
+            usleep(5);
     }
     pause();
     for (int i = 0; i < act.nb; i++) {
         kill(pl->theirs_pid, SIGUSR1);
-        usleep(5);
+        if (i != act.lett - 1)
+            usleep(5);
     }
     pause();
+    my_putstr("not you!\n");
     return(won(handle, pl, act));
 }
 
@@ -78,11 +81,15 @@ int receive_attack(player_t *pl)
     (sg.sa_handler) = receive_handle;
     sigaction(SIGUSR1, &sg, NULL);
     r_helper(pl, &tc, &received);
-    (analyze_hit(received, pl) == 1) ? kill(SIGUSR2, pl->theirs_pid)
-                                     : kill(SIGUSR1, pl->theirs_pid);
     (sg.sa_handler) = determine_success;
     sigaction(SIGUSR1, &sg, NULL);
     sigaction(SIGUSR2, &sg, NULL);
+     if(analyze_hit(received, pl) == 1)
+          kill(pl->theirs_pid, SIGUSR2);
+     else
+         kill(pl->theirs_pid, SIGUSR1);
     pause();
+        my_putstr("am\n");
+
     return (lost(handle, pl));
 }

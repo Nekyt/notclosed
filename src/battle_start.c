@@ -45,7 +45,7 @@ int attack(player_t *pl)
         getline(&at_p, &off, stdin);
     }
     att.lett = at_p[0] - 'A' + 1;
-    att.nb = at_p[1];
+    att.nb = at_p[1] - '0';
     r = attack_other_pl(att,pl);
     my_putchar('\n');
     return(r);
@@ -65,8 +65,12 @@ int won(int test, player_t *pl, coord_t act)
         } else{
             kill(pl->theirs_pid, SIGUSR2);
         }
-    } else
+    } else{
         pl->theirs[act.nb][act.lett] = 'o';
+        kill(pl->theirs_pid, SIGUSR2);
+    }
+    my_putstr("was at end");
+  //  fflush(stdin);
     return (0);
 }
 
@@ -87,8 +91,14 @@ void battle_start(player_t *pl)
 int analyze_hit(coord_t my_coord, player_t *pl)
 {
     display_coord(&my_coord);
+        my_putstr("\n");
+    my_put_nbr(my_coord.lett);
+    my_putstr("\n");
+    my_put_nbr(my_coord.nb);
+    my_putstr("\n");
     my_coord.lett = (my_coord.lett + 1) * 2;
     my_coord.nb = (my_coord.nb) + 1;
+
     if(is_num(pl->own[my_coord.nb][my_coord.lett]))
     {
         pl->own[my_coord.lett][my_coord.nb] = 'x';
@@ -114,8 +124,9 @@ int fight_manager(player_t *pl)
     }
     else
     {
+        do{
         print_dispo(pl);
-        while (receive(pl) == 0 && attack(pl) == 0);
+        } while (receive(pl) == 0 && attack(pl) == 0);
     }
     my_putstr("exited manager...\n");
 }
