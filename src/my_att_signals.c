@@ -37,17 +37,15 @@ int attack_other_pl(coord_t act, player_t *pl)
     sigaction(SIGUSR2, &sg1, NULL);
     for (int i = 0; i < act.lett; i++) {
         kill(pl->theirs_pid, SIGUSR1);
-        if (i != act.lett - 1)
             usleep(5);
     }
     pause();
     for (int i = 0; i < act.nb; i++) {
         kill(pl->theirs_pid, SIGUSR1);
-        if (i != act.lett - 1)
             usleep(5);
     }
     pause();
-    my_putstr("not you!\n");
+   // my_putstr("not you!\n");
     return(won(handle, pl, act));
 }
 
@@ -67,7 +65,7 @@ void r_helper(player_t *pl, struct timespec *tc, coord_t *received)
     tc->tv_nsec = 10000000;
     handle = 0;
     kill(pl->theirs_pid, SIGUSR1);
-    pause();
+
     while (nanosleep(tc, tc) < 0);
     received->nb = handle;
 }
@@ -89,7 +87,7 @@ int receive_attack(player_t *pl)
      else
          kill(pl->theirs_pid, SIGUSR1);
     pause();
-        my_putstr("am\n");
+      //  my_putstr("am\n");
 
     return (lost(handle, pl));
 }
