@@ -67,7 +67,7 @@ int is_num(char c)
 
 void display_coord(coord_t *to_d)
 {
-    char letter = to_d->lett + 'A';
+    char letter = to_d->lett + 'A' - 1;
     char nb = to_d->nb + '0';
     my_putchar(letter);
     my_putchar(nb);

@@ -44,7 +44,7 @@ int attack(player_t *pl)
         off = 0;
         getline(&at_p, &off, stdin);
     }
-    att.lett = at_p[0] - 'A';
+    att.lett = at_p[0] - 'A' + 1;
     att.nb = at_p[1] - '0';
     r = attack_other_pl(att, pl);
     my_putchar('\n');
@@ -54,7 +54,7 @@ int attack(player_t *pl)
 int won(int test, player_t *pl, coord_t act)
 {
     display_coord(&act);
-    act.lett = (act.lett + 1) * 2;
+    act.lett = (act.lett) * 2;
     act.nb = act.nb + 1;
     if (test == 1 ) {
         pl->score = pl->score + 1;
@@ -76,6 +76,7 @@ int won(int test, player_t *pl, coord_t act)
 
 int lost(int test, player_t *pl)
 {
+    my_putstr("points = ");my_put_nbr(pl->score);my_putchar('\n');
     if (test == 0) {
         my_putstr("Enemy won\n");
         return (1);
@@ -90,7 +91,7 @@ void battle_start(player_t *pl)
 int analyze_hit(coord_t my_coord, player_t *pl)
 {
     display_coord(&my_coord);
-    my_coord.lett = (my_coord.lett + 1) * 2;
+    my_coord.lett = (my_coord.lett ) * 2;
     my_coord.nb = (my_coord.nb) + 1;
 
     if (pl->own[my_coord.nb][my_coord.lett] == 'x')
