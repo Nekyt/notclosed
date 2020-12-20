@@ -56,18 +56,19 @@ int won(int test, player_t *pl, coord_t act)
     display_coord(&act);
     act.lett = (act.lett + 1) * 2;
     act.nb = act.nb + 1;
-    if (test == 1) {
+    if (test == 1 ) {
         pl->score = pl->score + 1;
         pl->theirs[act.nb][act.lett] = 'x';
-        my_putstr(": hit");
+        my_putstr(": hit\n");
         if (pl->score == pl->score_max) {
             kill(pl->theirs_pid, SIGUSR1);
             my_putstr("I won");
             return (1);
         }
-    } else {
-        pl->theirs[act.nb][act.lett] = 'o';
-            my_putstr(": missed");
+    } else  {
+        if( pl->theirs[act.nb][act.lett] != 'x')
+            pl->theirs[act.nb][act.lett] = 'o';
+        my_putstr(": missed\n");
     }
     kill(pl->theirs_pid, SIGUSR2);
     return (0);
@@ -89,21 +90,21 @@ void battle_start(player_t *pl)
 int analyze_hit(coord_t my_coord, player_t *pl)
 {
     display_coord(&my_coord);
-    my_putstr("\n");
-    my_put_nbr(my_coord.lett);
-    my_putstr("\n");
-    my_put_nbr(my_coord.nb);
-    my_putstr("\n");
     my_coord.lett = (my_coord.lett + 1) * 2;
     my_coord.nb = (my_coord.nb) + 1;
 
+    if (pl->own[my_coord.nb][my_coord.lett] == 'x')
+        {
+            my_putstr(": missed\n");
+            return (0);
+        }
     if (is_num(pl->own[my_coord.nb][my_coord.lett])) {
         pl->own[my_coord.nb][my_coord.lett] = 'x';
-        my_putstr(" hit\n");
+        my_putstr(": hit\n");
         return (1);
     } else {
         pl->own[my_coord.nb][my_coord.lett] = 'o';
-        my_putstr(" missed\n");
+        my_putstr(": missed\n");
     }
     return (0);
 }
@@ -119,5 +120,6 @@ int fight_manager(player_t *pl)
             print_dispo(pl);
         } while (receive(pl) == 0 && attack(pl) == 0);
     }
+    return (0);
     my_putstr("exited manager...\n");
 }
