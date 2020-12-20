@@ -89,6 +89,5 @@ int main(int ac, char **av)
     map = init_player_map(data_got.init_pos, ships);
     pl = init_player(map, ships, data_got.pid);
     manage_ids(pl);
-    print_player(pl);
     battle_start(pl);
 }

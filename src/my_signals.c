@@ -42,9 +42,7 @@ void manage_ids(player_t *pl)
         sigaction(SIGUSR1, &sg,NULL);
         pause();
         pl->theirs_pid = handle;
-        my_putstr("enemy connected\n");
-        my_put_nbr(pl->theirs_pid);
-        my_putstr("\n");
+        my_putstr("enemy connected\n\n");
         kill(pl->theirs_pid,SIGUSR2);
         pl->order = first;
     } else{
@@ -55,7 +53,7 @@ void manage_ids(player_t *pl)
         kill(pl->theirs_pid,SIGUSR1);
         pause();
         if(handle == -2)
-            my_putstr("successfully connected\n");
+            my_putstr("successfully connected\n\n");
         else
         {
             my_putstr("error!");

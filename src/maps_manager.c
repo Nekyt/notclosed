@@ -85,7 +85,6 @@ ship_t **ship_analyzer(char **coordinates, int index, ship_t **ships)
 char **init_player_map(char **coordinates, ship_t **ships)
 {
         char **fulfil = init_empty_map();
-        print_ships(ships);
         void (*ship_m[])(char**,ship_t*) = {ship_is_up,ship_is_down, ship_is_left,ship_is_right};
 
         for(int i = 0; ships[i] != NULL; i++)
